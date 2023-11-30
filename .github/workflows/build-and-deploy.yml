@@ -12,7 +12,7 @@ on:
   pull_request:
 
 env:
-  AZURE_FUNCTIONAPP_NAME: adt-event-endpoint
+  AZURE_FUNCTIONAPP_NAME: ADTEventBroadcast
   AZURE_FUNCTIONAPP_PACKAGE_PATH: "adt-event-endpoint-function"
   DOTNET_VERSION: 8.0.x
 
