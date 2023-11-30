@@ -2,7 +2,7 @@
   "profiles": {
     "adt_event_endpoint_function": {
       "commandName": "Project",
-      "commandLineArgs": "--port 7021",
+      "commandLineArgs": "--port 7263",
       "launchBrowser": false
     }
   }
