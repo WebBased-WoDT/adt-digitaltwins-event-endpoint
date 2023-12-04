@@ -62,16 +62,11 @@ namespace Unibo.Wodt
             // Log received event
             log.LogInformation($"Received event: {eventGridEvent.Data}");
 
-            // Obtain event data and construct the event object to send via SignalR
-            JObject eventToClients = (JObject)JsonConvert.DeserializeObject(eventGridEvent.Data.ToString());
-
             // Filter out event that aren't of the Digital Twin of interest
             if (getDigitalTwinId(eventGridEvent.Type, eventGridEvent).Equals(digitalTwinId)){
-                // Add metadata to the event object
-                eventToClients.Add("DtId", getDigitalTwinId(eventGridEvent.Type, eventGridEvent));
-                eventToClients.Add("eventType", eventGridEvent.Type);
-                eventToClients.Add("eventDateTime", eventGridEvent.Time);
 
+                JObject eventToClients = handleEvent(eventGridEvent);
+            
                 // Log event sent via Signal R
                 log.LogInformation($"New event:\n {eventToClients}");
 
@@ -98,6 +93,18 @@ namespace Unibo.Wodt
                 break;
             }
             return result;
+        }
+
+        private static JObject handleEvent(CloudEvent receivedEvent) {
+                JObject returnedEvent = new()
+                {
+                    // Add metadata to the event object
+                    { "DtId", getDigitalTwinId(receivedEvent.Type, receivedEvent) },
+                    { "eventType", receivedEvent.Type },
+                    { "eventDateTime", receivedEvent.Time }
+                };
+
+                return returnedEvent;
         }
     }
 }
