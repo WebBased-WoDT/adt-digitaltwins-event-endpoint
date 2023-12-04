@@ -1,3 +1,10 @@
+## [1.2.0](https://github.com/WebBased-WoDT/adt-digitaltwins-event-endpoint/compare/1.1.0...1.2.0) (2023-12-04)
+
+
+### Features
+
+* add outgoing relationships to the status of the digital twin after each event ([f5d96c8](https://github.com/WebBased-WoDT/adt-digitaltwins-event-endpoint/commit/f5d96c82575c3bacdfac5b55e766e8700a322430))
+
 ## [1.1.0](https://github.com/WebBased-WoDT/adt-digitaltwins-event-endpoint/compare/1.0.0...1.1.0) (2023-12-04)
 
 
