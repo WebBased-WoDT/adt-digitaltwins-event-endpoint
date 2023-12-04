@@ -7,12 +7,12 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.EventGrid;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Microsoft.Azure.WebJobs.Extensions.SignalRService;
 using Azure.DigitalTwins.Core;
 using System;
 using System.Net.Http;
+using System.Text.Json.Nodes;
+using System.Text.Json;
 
 namespace Unibo.Wodt
 {
@@ -64,8 +64,8 @@ namespace Unibo.Wodt
 
             // Filter out event that aren't of the Digital Twin of interest
             if (getDigitalTwinId(eventGridEvent.Type, eventGridEvent).Equals(digitalTwinId)){
-
-                JObject eventToClients = handleEvent(eventGridEvent);
+                // Handle the event and create an event payload to send along the system
+                JsonObject eventToClients = handleEvent(eventGridEvent);
             
                 // Log event sent via Signal R
                 log.LogInformation($"New event:\n {eventToClients}");
@@ -75,7 +75,7 @@ namespace Unibo.Wodt
                     new SignalRMessage
                     {
                         Target = "digitalTwinUpdate",
-                        Arguments = new[] { JsonConvert.SerializeObject(eventToClients) }
+                        Arguments = new[] { eventToClients.ToJsonString() }
                     });
             } else {
                 return Task.CompletedTask;
@@ -89,20 +89,27 @@ namespace Unibo.Wodt
                     result = receivedEvent.Subject;
                 break;
                 case relationshipEventType:
-                    result = ((JObject)JsonConvert.DeserializeObject(receivedEvent.Data.ToString()))["$sourceId"].ToString();
+                    result = JsonSerializer.Deserialize<JsonObject>(receivedEvent.Data.ToString())["$sourceId"].ToString();
                 break;
             }
             return result;
         }
 
-        private static JObject handleEvent(CloudEvent receivedEvent) {
-                JObject returnedEvent = new()
+        private static JsonObject handleEvent(CloudEvent receivedEvent) {
+                string digitalTwinId = getDigitalTwinId(receivedEvent.Type, receivedEvent);
+                JsonObject returnedEvent = new()
                 {
                     // Add metadata to the event object
-                    { "DtId", getDigitalTwinId(receivedEvent.Type, receivedEvent) },
+                    { "DtId",  digitalTwinId},
                     { "eventType", receivedEvent.Type },
                     { "eventDateTime", receivedEvent.Time }
                 };
+
+                // If the event is an update about properties or relationships, then obtain the complete current status
+                if (receivedEvent.Type.Equals(updateDigitalTwinEventType) || receivedEvent.Type.Equals(relationshipEventType)) {
+                    JsonObject digitalTwin = digitalTwinsClient.GetDigitalTwin<JsonObject>(digitalTwinId);
+                    returnedEvent["status"] = digitalTwin;
+                }
 
                 return returnedEvent;
         }
