@@ -13,13 +13,16 @@ using System;
 using System.Net.Http;
 using System.Text.Json.Nodes;
 using System.Text.Json;
+using Azure;
 
 namespace Unibo.Wodt
 {
     public static class ADTEventTrigger
     {
-        /// <summary> Azure Digital Twin's relationships events type. </summary>
-        private const string relationshipEventType = "Microsoft.DigitalTwins.Relationship";
+        /// <summary> Azure Digital Twin's relationships create event type. </summary>
+        private const string relationshipCreateEventType = "Microsoft.DigitalTwins.Relationship.Create";
+        /// <summary> Azure Digital Twin's relationships delete event type. </summary>
+        private const string relationshipDeleteEventType = "Microsoft.DigitalTwins.Relationship.Delete";
         /// <summary> Azure Digital Twin's create Digital Twin event type. </summary>
         private const string createDigitalTwinEventType = "Microsoft.DigitalTwins.Twin.Create";
         /// <summary> Azure Digital Twin's delete Digital Twin event type. </summary>
@@ -88,8 +91,8 @@ namespace Unibo.Wodt
                 case createDigitalTwinEventType: case deleteDigitalTwinEventType: case updateDigitalTwinEventType:
                     result = receivedEvent.Subject;
                 break;
-                case relationshipEventType:
-                    result = JsonSerializer.Deserialize<JsonObject>(receivedEvent.Data.ToString())["$sourceId"].ToString();
+                case relationshipCreateEventType: case relationshipDeleteEventType:
+                    result = JsonSerializer.Deserialize<JsonObject>(receivedEvent.Data.ToString())["data"]["$sourceId"].ToString();
                 break;
             }
             return result;
@@ -106,9 +109,20 @@ namespace Unibo.Wodt
                 };
 
                 // If the event is an update about properties or relationships, then obtain the complete current status
-                if (receivedEvent.Type.Equals(updateDigitalTwinEventType) || receivedEvent.Type.Equals(relationshipEventType)) {
+                if (receivedEvent.Type.Equals(updateDigitalTwinEventType)
+                    || receivedEvent.Type.Equals(relationshipCreateEventType)
+                    || receivedEvent.Type.Equals(relationshipDeleteEventType)) {
+                    // Get and add current status
                     JsonObject digitalTwin = digitalTwinsClient.GetDigitalTwin<JsonObject>(digitalTwinId);
                     returnedEvent["status"] = digitalTwin;
+
+                    // Get and add the outgoing relationships of the digital twin
+                    JsonArray relationshipsArray = new();
+                    returnedEvent["status"]["relationships"] = relationshipsArray;
+                    Pageable<JsonObject> relationships = digitalTwinsClient.GetRelationships<JsonObject>(digitalTwinId);
+                    foreach(JsonObject relationship in relationships) {
+                        relationshipsArray.Add(relationship);
+                    }
                 }
 
                 return returnedEvent;
