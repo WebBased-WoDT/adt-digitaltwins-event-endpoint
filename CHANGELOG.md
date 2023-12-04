@@ -1,3 +1,33 @@
+## [1.1.0](https://github.com/WebBased-WoDT/adt-digitaltwins-event-endpoint/compare/1.0.0...1.1.0) (2023-12-04)
+
+
+### Features
+
+* add complete status of the digital twin after each event ([20b40c0](https://github.com/WebBased-WoDT/adt-digitaltwins-event-endpoint/commit/20b40c099299756e74d756f1517124223f5c3a2a))
+
+
+### Dependency updates
+
+* **deps:** update azure azure-sdk-for-net monorepo ([a64ad12](https://github.com/WebBased-WoDT/adt-digitaltwins-event-endpoint/commit/a64ad12b9e63ebef32cd22e87d7184149e69cfa9))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.79 ([e057459](https://github.com/WebBased-WoDT/adt-digitaltwins-event-endpoint/commit/e057459d46746c4bf3a25773837d9d820ceb910b))
+
+
+### Build and continuous integration
+
+* add mergify config ([9cb8fd9](https://github.com/WebBased-WoDT/adt-digitaltwins-event-endpoint/commit/9cb8fd97ce728ffd59624183836b2299a3014405))
+* add renovate config ([8e9c151](https://github.com/WebBased-WoDT/adt-digitaltwins-event-endpoint/commit/8e9c151ece80a61c5ceca96c60ce00d1fc7f3c1e))
+
+
+### General maintenance
+
+* add Azure Identity deps ([b503aab](https://github.com/WebBased-WoDT/adt-digitaltwins-event-endpoint/commit/b503aab6409d69af1e037d0610bbfd7e4263034a))
+
+
+### Refactoring
+
+* move handling logic and avoid to send boilerplate data ([636ce81](https://github.com/WebBased-WoDT/adt-digitaltwins-event-endpoint/commit/636ce8192d9411b6ce43fb8e91d2953fc1787e2c))
+* refactor code to handle events ([a9de2f7](https://github.com/WebBased-WoDT/adt-digitaltwins-event-endpoint/commit/a9de2f73c545b14660ede3a4b20ee04e3db1cde7))
+
 ## 1.0.0 (2023-11-30)
 
 
