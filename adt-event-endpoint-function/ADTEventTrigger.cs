@@ -104,7 +104,7 @@ namespace Unibo.Wodt
                 JsonObject returnedEvent = new()
                 {
                     // Add metadata to the event object
-                    { "DtId",  digitalTwinId},
+                    { "dtId",  digitalTwinId},
                     { "eventType", receivedEvent.Type },
                     { "eventDateTime", receivedEvent.Time }
                 };
