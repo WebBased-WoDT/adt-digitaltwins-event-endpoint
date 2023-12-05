@@ -14,6 +14,7 @@ using System.Net.Http;
 using System.Text.Json.Nodes;
 using System.Text.Json;
 using Azure;
+using System.Collections.Generic;
 
 namespace Unibo.Wodt
 {
@@ -114,13 +115,15 @@ namespace Unibo.Wodt
                     || receivedEvent.Type.Equals(relationshipDeleteEventType)) {
                     // Get and add current status
                     JsonObject digitalTwin = digitalTwinsClient.GetDigitalTwin<JsonObject>(digitalTwinId);
-                    returnedEvent["status"] = digitalTwin;
+                    new List<string> { "$dtId", "$etag", "$metadata"}.ForEach((element) => digitalTwin.Remove(element));
+                    returnedEvent["properties"] = digitalTwin;
 
                     // Get and add the outgoing relationships of the digital twin
                     JsonArray relationshipsArray = new();
-                    returnedEvent["status"]["relationships"] = relationshipsArray;
+                    returnedEvent["relationships"] = relationshipsArray;
                     Pageable<JsonObject> relationships = digitalTwinsClient.GetRelationships<JsonObject>(digitalTwinId);
                     foreach(JsonObject relationship in relationships) {
+                        new List<string> { "$relationshipId", "$etag"}.ForEach((element) => relationship.Remove(element));
                         relationshipsArray.Add(relationship);
                     }
                 }
