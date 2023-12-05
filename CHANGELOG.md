@@ -1,3 +1,15 @@
+## [1.3.0](https://github.com/WebBased-WoDT/adt-digitaltwins-event-endpoint/compare/1.2.0...1.3.0) (2023-12-05)
+
+
+### Features
+
+* change events payload to improve processability ([a014351](https://github.com/WebBased-WoDT/adt-digitaltwins-event-endpoint/commit/a01435158e727402163046a169e4dc61dfd78fe6))
+
+
+### Refactoring
+
+* remove useless parameter in getDigitalTwinId ([7c48513](https://github.com/WebBased-WoDT/adt-digitaltwins-event-endpoint/commit/7c48513d4c1b4ce655dc1eda22c39482310d6ef0))
+
 ## [1.2.0](https://github.com/WebBased-WoDT/adt-digitaltwins-event-endpoint/compare/1.1.0...1.2.0) (2023-12-04)
 
 
