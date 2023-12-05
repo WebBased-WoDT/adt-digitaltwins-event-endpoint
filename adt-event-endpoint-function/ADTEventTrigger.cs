@@ -66,7 +66,7 @@ namespace Unibo.Wodt
             log.LogInformation($"Received event: {eventGridEvent.Data}");
 
             // Filter out event that aren't of the Digital Twin of interest
-            if (getDigitalTwinId(eventGridEvent.Type, eventGridEvent).Equals(digitalTwinId)){
+            if (getDigitalTwinId(eventGridEvent).Equals(digitalTwinId)){
                 // Handle the event and create an event payload to send along the system
                 JsonObject eventToClients = handleEvent(eventGridEvent);
             
@@ -85,9 +85,9 @@ namespace Unibo.Wodt
             }
         }
 
-        private static string getDigitalTwinId(string eventType, CloudEvent receivedEvent) {
+        private static string getDigitalTwinId(CloudEvent receivedEvent) {
             string result = "";
-            switch(eventType) {
+            switch(receivedEvent.Type) {
                 case createDigitalTwinEventType: case deleteDigitalTwinEventType: case updateDigitalTwinEventType:
                     result = receivedEvent.Subject;
                 break;
@@ -99,7 +99,7 @@ namespace Unibo.Wodt
         }
 
         private static JsonObject handleEvent(CloudEvent receivedEvent) {
-                string digitalTwinId = getDigitalTwinId(receivedEvent.Type, receivedEvent);
+                string digitalTwinId = getDigitalTwinId(receivedEvent);
                 JsonObject returnedEvent = new()
                 {
                     // Add metadata to the event object
