@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/WebBased-WoDT/adt-digitaltwins-event-endpoint/compare/1.3.0...1.3.1) (2023-12-05)
+
+
+### Bug Fixes
+
+* camel case in dtId field ([cbb20f8](https://github.com/WebBased-WoDT/adt-digitaltwins-event-endpoint/commit/cbb20f8e7bf2e94d5b0cac00d29e57acd3336f22))
+
 ## [1.3.0](https://github.com/WebBased-WoDT/adt-digitaltwins-event-endpoint/compare/1.2.0...1.3.0) (2023-12-05)
 
 
