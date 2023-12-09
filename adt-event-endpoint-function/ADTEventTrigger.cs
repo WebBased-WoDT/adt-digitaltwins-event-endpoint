@@ -105,7 +105,7 @@ namespace Unibo.Wodt
                 {
                     // Add metadata to the event object
                     { "dtId",  digitalTwinId},
-                    { "eventType", receivedEvent.Type },
+                    { "eventType", mapEventType(receivedEvent.Type) },
                     { "eventDateTime", receivedEvent.Time }
                 };
 
@@ -129,6 +129,10 @@ namespace Unibo.Wodt
                 }
 
                 return returnedEvent;
+        }
+
+        private static string mapEventType(string cloudEventType) {
+            return cloudEventType.Equals(deleteDigitalTwinEventType) ? "DELETE" : "UPDATE";
         }
     }
 }
