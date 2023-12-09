@@ -1,3 +1,20 @@
+## [1.4.0](https://github.com/WebBased-WoDT/adt-digitaltwins-event-endpoint/compare/1.3.1...1.4.0) (2023-12-09)
+
+
+### Features
+
+* avoid the dependency of azure digital twin event type to consumers ([66adffa](https://github.com/WebBased-WoDT/adt-digitaltwins-event-endpoint/commit/66adffa1551d4f555e4ab496b75a41e41e6210a4))
+
+
+### Dependency updates
+
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.80 ([daeca86](https://github.com/WebBased-WoDT/adt-digitaltwins-event-endpoint/commit/daeca86c35f66e3fdc432b12d571352d4f4b9bea))
+
+
+### Build and continuous integration
+
+* **deps:** update actions/setup-dotnet action to v4 ([5893eb6](https://github.com/WebBased-WoDT/adt-digitaltwins-event-endpoint/commit/5893eb6036946bbcac182edef7a3a00c13e8d241))
+
 ## [1.3.1](https://github.com/WebBased-WoDT/adt-digitaltwins-event-endpoint/compare/1.3.0...1.3.1) (2023-12-05)
 
 
