@@ -1,3 +1,18 @@
+## [1.5.0](https://github.com/WebBased-WoDT/adt-digitaltwins-event-endpoint/compare/1.4.0...1.5.0) (2023-12-22)
+
+
+### Features
+
+* allow the use of URIs for relationships with external DTs ([1f54f00](https://github.com/WebBased-WoDT/adt-digitaltwins-event-endpoint/commit/1f54f0010546fd93380163a53eaee95fe8bf1b64))
+
+
+### Dependency updates
+
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.81 ([30a3bb1](https://github.com/WebBased-WoDT/adt-digitaltwins-event-endpoint/commit/30a3bb1170820ea3b776a85fc6fc9df2bdb7e79f))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.82 ([e210495](https://github.com/WebBased-WoDT/adt-digitaltwins-event-endpoint/commit/e2104955246b1f77e2a020d2218fb14c78a98787))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.83 ([e70663d](https://github.com/WebBased-WoDT/adt-digitaltwins-event-endpoint/commit/e70663d27fe8d4843d16879bae5d4bb9635e7a33))
+* **deps:** update dependency semantic-release-preconfigured-conventional-commits to v1.1.84 ([fd4e683](https://github.com/WebBased-WoDT/adt-digitaltwins-event-endpoint/commit/fd4e683656a80b5eb19ffe64e5901e20698d107c))
+
 ## [1.4.0](https://github.com/WebBased-WoDT/adt-digitaltwins-event-endpoint/compare/1.3.1...1.4.0) (2023-12-09)
 
 
