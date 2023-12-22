@@ -123,6 +123,11 @@ namespace Unibo.Wodt
                     returnedEvent["relationships"] = relationshipsArray;
                     Pageable<JsonObject> relationships = digitalTwinsClient.GetRelationships<JsonObject>(digitalTwinId);
                     foreach(JsonObject relationship in relationships) {
+                        // Obtain target digital twin id
+                        string targetDigitalTwinID = relationship["$targetId"].ToString();
+                        // Obtain the digital twin with which it has a relationship in order to get its URI
+                        BasicDigitalTwin targetDigitalTwin = digitalTwinsClient.GetDigitalTwin<BasicDigitalTwin>(targetDigitalTwinID);
+                        relationship["$targetId"] = targetDigitalTwin.Contents["uri"].ToString();
                         new List<string> { "$relationshipId", "$etag"}.ForEach((element) => relationship.Remove(element));
                         relationshipsArray.Add(relationship);
                     }
