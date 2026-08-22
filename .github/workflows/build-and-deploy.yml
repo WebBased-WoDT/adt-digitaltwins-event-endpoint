@@ -23,7 +23,7 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v5
       - name: Setup DotNet
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v6
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
       - name: Build the function
